@@ -1,6 +1,7 @@
 #ifndef DUSK_IO_HPP
 #define DUSK_IO_HPP
 
+#include <filesystem>
 #include <vector>
 
 // I can't believe it's 2026 and neither SDL (no error codes) nor
@@ -85,9 +86,7 @@ public:
     /**
      * Get direct access to the underlying FILE* handle.
      */
-    [[nodiscard]] void* GetFileHandle() const noexcept {
-        return file;
-    }
+    [[nodiscard]] void* GetFileHandle() const noexcept { return file; }
 
     /**
      * Write data to the file.
@@ -97,7 +96,14 @@ public:
     FILE* ToInner();
 };
 
+/**
+ * Converts a std::filesystem::path to a std::string, UTF-8, without exploding on Windows.
+ */
+inline std::string fs_path_to_string(const std::filesystem::path& path) {
+    const auto u8str = path.u8string();
+    return {reinterpret_cast<const char*>(u8str.c_str())};
 }
 
+}  // namespace dusk::io
 
 #endif  // DUSK_IO_HPP

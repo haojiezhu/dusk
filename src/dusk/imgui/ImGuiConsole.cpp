@@ -313,7 +313,9 @@ namespace dusk {
                 ImGui::PopFont();
             }
             ImGui::PushFont(ImGuiEngine::fontLarge);
-            ImGuiTextCenter("Failed to initialize any graphics backend");
+            ImGuiTextCenter("Failed to initialize any graphics backend.");
+            ImGuiTextCenter("\nYour system may be misconfigured, or your hardware may not support the required versions of any of the available backends.");
+            ImGuiTextCenter("\nA clean reinstall of Dusk may help. For further assistance, please visit #tech-support on the Twilit Realm Discord server.");
             const auto& style = ImGui::GetStyle();
             const auto retrySize = ImGui::CalcTextSize("Retry (Auto backend)");
             const auto quitSize = ImGui::CalcTextSize("Quit");
@@ -373,6 +375,7 @@ namespace dusk {
             m_menuTools.ShowAudioDebug();
             m_menuTools.ShowSaveEditor();
             m_menuTools.ShowStateShare();
+            m_menuTools.ShowActorSpawner();
         }
 
         // Hide mouse cursor if the F1 menu is not open and the cursor is idle for 3 seconds.
